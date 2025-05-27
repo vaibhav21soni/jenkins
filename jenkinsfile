@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    triggers {
+        githubPush() // Triggered by GitHub push webhook
+    }
+
+    environment {
+        DEPLOY_DIR = '/var/www/html' // adjust if needed
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/vaibhav21soni/jenkins.git'
+            }
+        }
+
+        stage('Deploy to Nginx') {
+            steps {
+                sh 'cp index.html $DEPLOY_DIR/index.html'
+                sh 'sudo systemctl reload nginx'
+            }
+        }
+    }
+}

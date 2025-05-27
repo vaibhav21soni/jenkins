@@ -5,7 +5,8 @@ pipeline {
     }
 
     environment {
-        DEPLOY_DIR = 'C:\\nginx\\html' // Adjust to your actual Nginx html folder on Windows
+        DEPLOY_DIR = 'C:\\nginx\\html'
+        NGINX_DIR = 'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\testing\\nginx-1.28.0'
     }
 
     stages {
@@ -17,25 +18,25 @@ pipeline {
 
         stage('Deploy to Nginx') {
             steps {
-                // Create the deploy directory if it doesn't exist
                 bat """
-                if not exist "${env.DEPLOY_DIR}" (
-                    mkdir "${env.DEPLOY_DIR}"
+                if not exist "${DEPLOY_DIR}" (
+                    mkdir "${DEPLOY_DIR}"
                 )
+                copy /Y index.html "${DEPLOY_DIR}\\index.html"
+
+                cd "${NGINX_DIR}"
+                echo Stopping nginx...
+                nginx -s stop
+
+                echo Starting nginx...
+                start nginx
+
+                echo Reloading nginx...
+                nginx -s reload
+
+                echo Deployment completed successfully.
                 """
-
-                // Copy index.html file
-                bat "copy /Y index.html \"${env.DEPLOY_DIR}\\index.html\""
-             
-                
-                bat "cd nginx-1.28.0"
-                // Restart Nginx service (replace 'nginx' with your service name if different)
-                bat "nginx -s stop"
-                bat "start nginx"
-
-                // Confirmation message
-                bat "echo Deployment completed successfully."
             }
         }
     }
-} 
+}

@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent{ label 'jenkins_slave'}
     triggers {
         githubPush() // Triggered by GitHub push webhook
     }
@@ -18,7 +18,8 @@ pipeline {
         stage('Deploy to Nginx') {
             steps {
                 sh 'cp index.html $DEPLOY_DIR/index.html'
-                sh 'sudo systemctl reload nginx'
+                sh "sudo /bin/systemctl reload nginx"
+
             }
         }
     }

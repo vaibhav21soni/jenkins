@@ -1,11 +1,12 @@
 pipeline {
-    agent{ label 'jenkins_slave'}
+    agent { label 'jenkins_slave' }
     triggers {
         githubPush() // Triggered by GitHub push webhook
     }
 
     environment {
-        DEPLOY_DIR = '/var/www/html' // adjust if needed
+        DEPLOY_DIR = 'C:\\Users\\USER\\Downloads\\nginx-1.28.0\\nginx-1.28.0\\html'
+        NGINX_DIR = 'C:\\Users\\USER\\Downloads\\nginx-1.28.0'
     }
 
     stages {
@@ -17,10 +18,18 @@ pipeline {
 
         stage('Deploy to Nginx') {
             steps {
-                sh 'cp index.html $DEPLOY_DIR/index.html'
-                sh "sudo /bin/systemctl reload nginx"
-                sh "echo 'done task' "
+                bat """
+                if not exist "${DEPLOY_DIR}" (
+                    mkdir "${DEPLOY_DIR}"
+                )
+                copy /Y index.html "${DEPLOY_DIR}\\index.html"
 
+                cd "${NGINX_DIR}"
+                echo Reloading nginx...
+                start nginx
+
+                echo Deployment completed successfully.
+                """
             }
         }
     }

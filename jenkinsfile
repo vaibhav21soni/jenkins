@@ -28,7 +28,7 @@ pipeline {
                 bat "copy /Y index.html \"${env.DEPLOY_DIR}\\index.html\""
              
                 
-                
+                bat "cd nginx-1.28.0"
                 // Restart Nginx service (replace 'nginx' with your service name if different)
                 bat "nginx -s stop"
                 bat "start nginx"
@@ -38,4 +38,4 @@ pipeline {
             }
         }
     }
-} update this pipeline that change the directory from cd C:\ProgramData\Jenkins\.jenkins\workspace\testing\nginx-1.28.0> then start nginx then stop and then reload it 
+} 

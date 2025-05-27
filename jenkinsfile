@@ -4,10 +4,11 @@ pipeline {
         githubPush() // Triggered by GitHub push webhook
     }
 
-    environment {
-        DEPLOY_DIR = 'C:\\nginx\\html'
-        NGINX_DIR = 'C:\Users\USER\Downloads\nginx-1.28.0'
-    }
+  environment {
+    DEPLOY_DIR = 'C:\\nginx\\html'
+    NGINX_DIR = 'C:\\Users\\USER\\Downloads\\nginx-1.28.0'
+}
+
 
     stages {
         stage('Clone Repository') {

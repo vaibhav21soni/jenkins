@@ -19,6 +19,7 @@ pipeline {
             steps {
                 sh 'cp index.html $DEPLOY_DIR/index.html'
                 sh "sudo /bin/systemctl reload nginx"
+                sh "echo 'done task' "
 
             }
         }

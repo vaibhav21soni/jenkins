@@ -5,7 +5,7 @@ pipeline {
     }
 
     environment {
-        DEPLOY_DIR = 'C:\\nginx\\html'
+        DEPLOY_DIR = 'C:\\Users\\USER\\Downloads\\nginx-1.28.0\\nginx-1.28.0\\html'
         NGINX_DIR = 'C:\\Users\\USER\\Downloads\\nginx-1.28.0'
     }
 

@@ -28,8 +28,8 @@ pipeline {
                 bat "copy /Y index.html \"${env.DEPLOY_DIR}\\index.html\""
 
                 // Restart Nginx service (replace 'nginx' with your service name if different)
-                bat "net stop nginx"
-                bat "net start nginx"
+                bat "nginx -s stop"
+                bat "start nginx"
 
                 // Confirmation message
                 bat "echo Deployment completed successfully."

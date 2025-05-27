@@ -4,11 +4,10 @@ pipeline {
         githubPush() // Triggered by GitHub push webhook
     }
 
-  environment {
-    DEPLOY_DIR = 'C:\\nginx\\html'
-    NGINX_DIR = 'C:\\Users\\USER\\Downloads\\nginx-1.28.0'
-}
-
+    environment {
+        DEPLOY_DIR = 'C:\\nginx\\html'
+        NGINX_DIR = 'C:\\Users\\USER\\Downloads\\nginx-1.28.0'
+    }
 
     stages {
         stage('Clone Repository') {
@@ -26,12 +25,6 @@ pipeline {
                 copy /Y index.html "${DEPLOY_DIR}\\index.html"
 
                 cd "${NGINX_DIR}"
-                echo Stopping nginx...
-                nginx -s stop
-
-                echo Starting nginx...
-                start nginx
-
                 echo Reloading nginx...
                 nginx -s reload
 

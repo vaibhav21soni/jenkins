@@ -26,7 +26,7 @@ pipeline {
 
                 // Copy index.html file
                 bat "copy /Y index.html \"${env.DEPLOY_DIR}\\index.html\""
-                bat "cd nginx-1.28.0"
+             
                 
                 
                 // Restart Nginx service (replace 'nginx' with your service name if different)
